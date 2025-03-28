@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>핑크공주 컬러 타로 카드</title>
+  <style>
+    /* 기본 스타일 */
+    body {
+      background: #ffe4e1;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #ff69b4;
+      font-size: 36px;
+      text-shadow: 2px 2px #ffb6c1;
+      margin-bottom: 20px;
+    }
+
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      border: 2px solid #ff69b4;
+      background: #ffb6c1;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 30px;
+      font-size: 18px;
+      box-shadow: 0 4px 6px rgba(255, 182, 193, 0.7);
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background: #ff69b4;
+      transform: scale(1.1);
+    }
+
+    #result {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    /* 카드 스타일 */
+    .card {
+      width: 120px;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid #ff69b4;
+      border-radius: 15px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 16px;
+      box-shadow: 0 6px 10px rgba(255, 105, 180, 0.6);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+
+<body>
+  <h1>핑크공주 컬러 타로 카드</h1>
+
+  <button onclick="drawCards(1)">1장 뽑기</button>
+  <button onclick="drawCards(3)">3장 뽑기</button>
+  <button onclick="drawCards(4)">4장 뽑기</button>
+  <button onclick="drawCards(5)">5장 뽑기</button>
+
+  <div id="result"></div>
+
+  <script>
+    // 메이저 카드 (반투명 추가 완료)
+    const majorCards = [
+      { color: "빨간색", hex: "#FF4D4D", shade: "1단계" },
+      { color: "빨간색", hex: "#CC0000", shade: "2단계" },
+      { color: "빨간색", hex: "#990000", shade: "3단계" },
+      { color: "반투명", hex: "rgba(255, 255, 255, 0.4)", shade: "1단계" },
+      { color: "반투명", hex: "rgba(255, 255, 255, 0.6)", shade: "2단계" },
+      { color: "반투명", hex: "rgba(255, 255, 255, 0.8)", shade: "3단계" },
+      { color: "핑크", hex: "#FF99CC", shade: "1단계" },
+      { color: "핑크", hex: "#FF66A3", shade: "2단계" },
+      { color: "핑크", hex: "#CC3366", shade: "3단계" }
+    ];
+
+    // 마이너 카드 (변경 없음)
+    const minorCards = [
+      { color: "흰색", hex: "#FFFFFF", textColor: "#333" },
+      { color: "회색", hex: "#B3B3B3" },
+      { color: "검은색", hex: "#000000" },
+      { color: "금색", hex: "#FFD700" },
+      { color: "은색", hex: "#C0C0C0" },
+      { color: "동색", hex: "#B87333" },
+      { color: "마젠타색", hex: "#FF00FF" },
+      { color: "옥색", hex: "#30D5C8" },
+      { color: "무지개", hex: "linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet)" },
+      { color: "황토", hex: "#D2691E" },
+      { color: "갈색", hex: "#8B4513" },
+      { color: "딥브라운", hex: "#5C4033" },
+      { color: "카키그린", hex: "#78866B" }
+    ];
+
+    const fullDeck = [...majorCards, ...minorCards];
+
+    // 카드 뽑기 함수
+    function drawCards(count) {
+      let resultHTML = "";
+      const tempDeck = [...fullDeck];
+
+      for (let i = 0; i < count; i++) {
+        const randomIndex = Math.floor(Math.random() * tempDeck.length);
+        const card = tempDeck[randomIndex];
+        const textColor = card.textColor || "#fff";
+
+        resultHTML += `
+          <div class="card" style="background: ${card.hex}; color: ${textColor}">
+            ${card.color} ${card.shade || ""}
+          </div>
+        `;
+
+        tempDeck.splice(randomIndex, 1);
+      }
+
+      document.getElementById("result").innerHTML = resultHTML;
+    }
+  </script>
+</body>
+</html>
